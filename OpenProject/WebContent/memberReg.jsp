@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+
+	String userId = request.getParameter("userId");
+	String password = request.getParameter("password");
+	String userName = request.getParameter("userName");
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,32 +23,25 @@
 
 <%@ include file="common/header.jsp" %>
 <div id="contents">
-		 <h2>회원가입</h2>
+		 <h2>회원가입 정보</h2>
 
     <hr>
     <form action="memberReg.jsp" method="post">
         <table>
           <tr>
             <td>아이디(이메일)</td>
-              <td><input type="text" name="userId"></td>
+              <td><%= userId %></td>
             </tr>
             <tr>
             <td>비밀번호</td>
-              <td><input type="password" name="password"></td>
+              <td><%= password %></td>
             </tr>
             <tr>
             <td>이름</td>
-              <td><input type="text" name="userName"></td>
+              <td><%= userName %></td>
             </tr>
             <tr>
             <td>사진</td>
-              <td><input type="file" name="photoFile"></td>
-            </tr>
-            <tr>
-            <td colspan="2"><input type="submit"></td>
-            </tr>
-            <tr>
-            <td></td>
               <td></td>
             </tr>
         </table>
