@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String id = (String)request.getSession(false).getAttribute("userId");
+	String id = (String)request.getSession(false).getAttribute("userId"); // 키는 스트링, 밸류는 오브젝트타입이라 형변환이 필요
 	String name = (String)request.getSession(false).getAttribute("userName");
 	
 	if(id == null){

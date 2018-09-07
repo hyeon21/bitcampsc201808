@@ -7,9 +7,9 @@
 	String pw = request.getParameter("password");
 	
 	if(id != null && pw != null && id.equals(pw)){
-		request.getSession(false).setAttribute("userId", id);
-		request.getSession(false).setAttribute("userName", "홍길동");
-		response.sendRedirect("myPage.jsp");
+		request.getSession(false).setAttribute("userId", id); // (키, 밸류)
+		request.getSession(false).setAttribute("userName", "홍길동"); // 홍길동은 임의의 값
+		response.sendRedirect("myPage.jsp"); // 리다이렉트
 	}
 %>
 <!DOCTYPE html>
