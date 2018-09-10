@@ -1,13 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.open.Member"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+
+<%
+	List<Member> members = null;
+	
+	if(application.getAttribute("members") != null){
+		members = (List<Member>)application.getAttribute("members");
+	} else {
+		members = new ArrayList<Member>();
+	}
+%>
 <%
 	request.setCharacterEncoding("utf-8");
 
 	String userId = request.getParameter("userId");
 	String password = request.getParameter("password");
 	String userName = request.getParameter("userName");
- %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	String userPhoto = request.getParameter("photoFile");
+	
+	Member member= new Member(userId, password, userName, userPhoto);
+	
+	members.add(member);
+	application.setAttribute("members", members);
+%>
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,6 +37,8 @@
  h2, td{
  padding: 10px;
  }
+ 
+ 
 </style>
 </head>
 <body>
@@ -42,7 +64,8 @@
             </tr>
             <tr>
             <td>사진</td>
-              <td></td>
+            <td><%= userPhoto %></td>
+            <td id=photoTd><img src="<%= application.getRealPath(userPhoto) %>" width="50px"></td>
             </tr>
         </table>
     </form>

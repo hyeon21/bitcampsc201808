@@ -15,5 +15,5 @@
 	<li><a href="logout.jsp">로그아웃</a></li>
 	<% } %>
 	<li><a href="myPage.jsp">마이페이지</a></li>
-	<li><a href="#">회원리스트</a></li>
+	<li><a href="memberRegList.jsp">회원리스트</a></li>
 </ul>
