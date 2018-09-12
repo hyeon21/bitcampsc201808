@@ -10,14 +10,13 @@
 	String id = request.getParameter("userId");
 	String pw = request.getParameter("password");
 	String name = request.getParameter("userName");
-
+	
+	String chkBox = request.getParameter("rememberChk");
+	
+	System.out.println("체크여부 : "+chkBox);
+	
 	List<Member> idPwChk = (List<Member>) application.getAttribute("members");
-
-	/* 	if (application.getAttribute("members") != null) {
-			idPwChk = (List<Member>) application.getAttribute("members");
-		} else {
-			idPwChk = new ArrayList<Member>();
-		} */
+	
 %>
 
 <%
@@ -27,15 +26,42 @@
 			response.sendRedirect("index.jsp"); // 리다이렉트 */
 	if (idPwChk != null) {
 		for (int i = 0; i < idPwChk.size(); i++) {
-			if (id.equals(idPwChk.get(i).getUserId())) { // 아이디가 어플리케이션에 있는가? 비밀번호가 일치하는가?
-				if (pw.equals(idPwChk.get(i).getPassword())) {
-					request.getSession(false).setAttribute("userId", id);
+			if (id.equals(idPwChk.get(i).getUserId())) { // 아이디가 어플리케이션에 있는가?
+				if (pw.equals(idPwChk.get(i).getPassword())) { // 비밀번호가 일치하는가?
+					request.getSession(false).setAttribute("userId", id); // 세션 생성하기
 					request.getSession(false).setAttribute("userName", name);
+					
+					if(chkBox==null){
+						Cookie cookie = new Cookie("remember", "");
+						cookie.setMaxAge(0);
+						response.addCookie(cookie);
+					} else {
+						Cookie ck = new Cookie("remember", id);
+						ck.setMaxAge(60*60*24*7);
+						response.addCookie(ck);
+					} 
+					
+					/* if(chkBox.equals("on")){
+						Cookie cookie = new Cookie("remember", id);
+						cookie.setMaxAge(60*60*24*7);
+						response.addCookie(cookie);
+					} else {
+						Cookie ck = new Cookie("remember", "");
+						ck.setMaxAge(0);
+						response.addCookie(ck);
+					}  */
 					response.sendRedirect("index.jsp");
 				}
 			}
 		}
 	}
+			
+	// 리멤버미에 체크되어있다면 쿠키저장하기
+		//  없으면 새로 생성하기
+		
+/* 		if(cookies == null){
+		Cookie cookie = new Cookie("rememberId", id);
+		response.addCookie(cookie); */
 %>
 <!DOCTYPE html>
 <html>

@@ -5,8 +5,7 @@
 <%@ page import="java.util.ArrayList"%>
 	
 <%
-
- List<Member> memberList = (List<Member>)application.getAttribute("members");
+	List<Member> memberList = (List<Member>)application.getAttribute("members");
 
 %>
 <!DOCTYPE html>
@@ -27,6 +26,7 @@ th, tr, td {
 	border: 2px solid black;
 	padding: 15px;
 }
+
 </style>
 </head>
 <body>
@@ -35,8 +35,10 @@ th, tr, td {
 	<table>
 	<tr>
 		<th>아이디</th>
+		<th>비밀번호</th>
 		<th>이름</th>
 		<th>사진</th>
+		<th>관리</th>
 	</tr>
 		<tbody id="tBody">
  <% if(memberList != null){ 
@@ -44,8 +46,10 @@ th, tr, td {
 		%>
 		<tr>
 			<td> <%=memberList.get(i).getUserId() %> </td>
+			<td> <%=memberList.get(i).getPassword() %> </td>
 			<td> <%=memberList.get(i).getUserName() %> </td>
 			<td> <img src="images/<%=memberList.get(i).getUserPhoto() %>"> </td>
+			<td><a href="edit.jsp?idx=<%=i%>">수정</a> <a href="delete.jsp?idx=<%=i%>">삭제</a></td>
 		</tr>
 		<% } 
 		}%>

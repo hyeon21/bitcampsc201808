@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	
 <h1 class="title">Open Project</h1>
 <ul id="gnb">
 	<li><a href="index.jsp">메인</a></li>
