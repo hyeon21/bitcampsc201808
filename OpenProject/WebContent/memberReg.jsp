@@ -3,6 +3,7 @@
 <%@ page import="com.open.Member"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%-- <jsp:useBean id="memberBean" scope="application" class="java.util.ArrayList"></jsp:useBean> --%>
 
 <%
 	List<Member> members = null;
@@ -25,6 +26,8 @@
 	
 	members.add(member);
 	application.setAttribute("members", members);
+	
+	System.out.println(userPhoto);
 %>
 
 <!DOCTYPE html>
@@ -64,8 +67,7 @@
             </tr>
             <tr>
             <td>사진</td>
-            <td><%= userPhoto %></td>
-            <td id=photoTd><img src="<%= application.getRealPath(userPhoto) %>" width="50px"></td>
+            <td><img src="./images/<%= userPhoto %>"></td>
             </tr>
         </table>
     </form>

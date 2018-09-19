@@ -5,20 +5,18 @@
 	Cookie[] cookies = request.getCookies();
 
 	String check = "";
-	String sujin = "";
+	String idChk = "";
 	
-	//쿠키를 받아와서 id랑 일치하는 쿠키를 로그인폼에 띄운다
+	//쿠키를 받아와서 id와 일치하는 쿠키를 로그인폼에 띄운다
 	for(int i=0; i<cookies.length; i++){
 		String ccc = cookies[i].getName();
 		if(ccc.equals("remember")){
 			check = "checked";
-			sujin = cookies[i].getValue();
+			idChk = cookies[i].getValue();
 		}
 		
 		
 	}
-	
-	// 받아온
 
 	
 %>
@@ -44,8 +42,8 @@ h2, td {
 		<form action="login.jsp" method="post">
 			<table>
 				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="userId" value=<%=sujin %>>
+					<td>아이디(이메일)</td>
+					<td><input type="text" name="userId" value=<%=idChk %>>
 					</td>
 				</tr>
 				<tr>

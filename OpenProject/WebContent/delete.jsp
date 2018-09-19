@@ -3,10 +3,10 @@
 <%@ page import="com.open.Member" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%
-	// 웹애플리케이션에서 멤버를 가져와서    
-	List<Member> modMemberList = (List<Member>)application.getAttribute("members");
 
+ <%
+	List<Member> modMemberList = (List<Member>)application.getAttribute("members");
+	
 	// id가 일치하는 멤버객체의 인덱스가 필요
 	int index = Integer.parseInt(request.getParameter("idx"));
 	// 해당하는 id의 객체를 지우고

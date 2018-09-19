@@ -34,7 +34,7 @@ th, tr, td {
 
 	<table>
 	<tr>
-		<th>아이디</th>
+		<th>아이디(이메일)</th>
 		<th>비밀번호</th>
 		<th>이름</th>
 		<th>사진</th>
