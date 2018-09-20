@@ -29,21 +29,25 @@ text-align: center;
 			<td>관리</td>
 		</tr>
 		<%
-			// 1. 데이터베이스 드라이터 로드
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// 1. 데이터베이스 드라이버 로드 - 서블릿처리했음
+			// Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			Connection conn = null;
 			Statement stmt = null;
 			ResultSet rs = null;
 
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-			String user = "scott";
-			String password = "0221";
+			// String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			// String user = "scott";
+			// String password = "0221";
+			// 커넥션 풀을 이용한다.
+			String jdbcUrl = "jdbc:apache:commons:dbcp:open";
 
 			try {
 				// 2. (연결) 커넥션개체 생성
-				conn = DriverManager.getConnection(url, user, password);
-
+				// conn = DriverManager.getConnection(url, user, password);
+				// 커넥션 풀을 이용한다.
+				conn = DriverManager.getConnection(jdbcUrl);
+				
 				// 3. Statement 객체 생성
 				stmt = conn.createStatement();
 

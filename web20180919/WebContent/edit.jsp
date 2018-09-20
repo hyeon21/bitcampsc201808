@@ -11,20 +11,22 @@
 	String ename = request.getParameter("ename");
 	String job = request.getParameter("job");
 
-	Class.forName("oracle.jdbc.driver.OracleDriver");
+	// Class.forName("oracle.jdbc.driver.OracleDriver");
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 
-	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	/* String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "scott";
-	String password = "0221";
+	String password = "0221"; */
+	
+	String jdbcUrl = "jdbc:apache:commons:dbcp:open";
 	
 	int resultCnt = 0;
 
 	try{
 	// 2. (연결) 커넥션개체 생성
-	conn = DriverManager.getConnection(url, user, password);
+	conn = DriverManager.getConnection(jdbcUrl);
 	
 	// 3. PreparedStatement 객체 생성
 	String sql = "update emp set ename=?, job=? where empno=?";
