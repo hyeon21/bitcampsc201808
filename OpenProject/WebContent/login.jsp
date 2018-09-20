@@ -1,9 +1,11 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page import="com.open.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.open.Member"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
-
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -12,34 +14,48 @@
 	
 	String chkBox = request.getParameter("rememberChk");
 	
-	System.out.println("체크여부 : "+chkBox);
+	// System.out.println("remember me! 체크여부 : "+chkBox);
 	
-	List<Member> idPwChk = (List<Member>) application.getAttribute("members");
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	
+	String jdbcUrl = "jdbc:apache:commons:dbcp:test";
+	
+	int resultCnt = 0;
+	
+	try {
+		// 2. (연결) 커넥션개체 생성
+		conn = DriverManager.getConnection(jdbcUrl);
 
-%>
+		// 3. Statement 객체 생성
+		stmt = conn.createStatement();
+		
+		String sql = "select userid, password from member where userid='"+id+"'";
+		rs = stmt.executeQuery(sql);
 
-<%
-
-	if (idPwChk != null) {
-		for (int i = 0; i < idPwChk.size(); i++) {
-			if (id.equals(idPwChk.get(i).getUserId())) { // 아이디가 어플리케이션에 있는가?
-				if (pw.equals(idPwChk.get(i).getPassword())) { // 비밀번호가 일치하는가?
-					request.getSession(false).setAttribute("userId", id); // 세션 생성하기
-					
-					if(chkBox==null){
-						Cookie cookie = new Cookie("remember", "");
-						cookie.setMaxAge(0);
-						response.addCookie(cookie);
-					} else {
-						Cookie ck = new Cookie("remember", id);
-						ck.setMaxAge(60*60*24*7);
-						response.addCookie(ck);
-					} 
-					response.sendRedirect("index.jsp");
-				}
+		if(rs.next()){
+			if(pw.equals(rs.getString("password"))){
+				request.getSession(false).setAttribute("userId", id); // 세션 생성하기
+				
+				if(chkBox==null){
+					Cookie cookie = new Cookie("remember", "");
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				} else {
+					Cookie ck = new Cookie("remember", id);
+					ck.setMaxAge(60*60*24*7);
+					response.addCookie(ck);
+				} 
+				response.sendRedirect("index.jsp");
 			}
 		}
+		
+	} finally {
+		stmt.close();
+		conn.close();
 	}
+
 %>
 <!DOCTYPE html>
 <html>

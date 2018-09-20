@@ -2,30 +2,25 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="com.open.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%
-	String id = (String)request.getSession(false).getAttribute("userId"); // 키는 스트링, 밸류는 오브젝트타입이라 형변환이 필요
-	String name = ""; // 애플리케이션의 멤버리스트에서 뽑아낸 이름을 저장할 변수
-	String photo = ""; // 애플리케이션의 멤버리스트에서 뽑아낸 사진파일명을 저장할 변수
-	
+	request.setCharacterEncoding("utf-8");
+	String uid = request.getParameter("userid");
+
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
 	
-	String jdbcUrl = "jdbc:apache:commons:dbcp:test";
-	
-	if(id == null){
-		%>
-<script>
-	alert("로그인 후 사용 가능한 서비스입니다.");
-	location.href = 'loginForm.jsp';
-</script>
-<%
-	} else {
+	String id = "";
+	String pw = "";
+	String name = "";
+	String photo = "";
 
-		try {
+	String jdbcUrl = "jdbc:apache:commons:dbcp:test";
+
+	try {
 	// 2. (연결) 커넥션개체 생성
 	// conn = DriverManager.getConnection(url, user, password);
 	// 커넥션 풀을 이용한다.
@@ -34,13 +29,14 @@
 	// 3. Statement 객체 생성
 	stmt = conn.createStatement();
 
-	String list_sql = "select userid, username, userphoto from member where userid='" + id + "'";
+	String list_sql = "select userid, password, username, userphoto from member where userid='" + uid + "'";
 
 	// 4. 쿼리 실행
 	rs = stmt.executeQuery(list_sql);
 
 		if (rs.next()) {
 			id = rs.getString("userid");
+			pw = rs.getString("password");
 			name = rs.getString("username");
 			photo = rs.getString("userphoto");
 		} 
@@ -49,7 +45,10 @@
 			conn.close();
 		}
 		
- %>
+		
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,39 +59,42 @@
 h2, td {
 	padding: 10px;
 }
-
-#memberPhoto {
-	width: 150px;
-	height: 150px;
-	border: 1px solid #333333;
-	border-radius: 75px;
-	margin: 20px 0;
-	text-align: center;
-}
 </style>
 </head>
 <body>
 
 	<%@ include file="common/header.jsp"%>
 	<div id="contents">
-		<h2>회원 정보</h2>
-
-		<div id="memberPhoto">
-			<img src="./images/<%=photo%>">
-		</div>
+		<h2>회원정보 수정</h2>
 
 		<hr>
-		<table>
-			<tr>
-				<td>아이디(이메일)</td>
-				<td><%= id %></td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><%= name %></td>
-			</tr>
-		</table>
+		<form action="edit.jsp?beforeId=<%=id%>" method="post">
+			<table>
+				<tr>
+					<td>아이디(이메일)</td>
+					<td><input type="text" name="userId" value="<%=id%>"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="password" value="<%=pw%>"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="userName" value="<%=name%>"></td>
+				</tr>
+				<tr>
+					<td>사진</td>
+					<td><input type="file" name="photoFile" value="<%=photo%>"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </body>
 </html>
-<%} %>

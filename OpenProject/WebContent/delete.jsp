@@ -1,20 +1,34 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%@ page import="com.open.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.open.Member" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 
  <%
-	List<Member> modMemberList = (List<Member>)application.getAttribute("members");
+	String userid = request.getParameter("userid");
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
 	
-	// id가 일치하는 멤버객체의 인덱스가 필요
-	int index = Integer.parseInt(request.getParameter("idx"));
-	// 해당하는 id의 객체를 지우고
-	modMemberList.remove(index);
-	// 다시 어플리케이션 멤버스에 저장하기
-	application.setAttribute("members", modMemberList);
+	String jdbcUrl = "jdbc:apache:commons:dbcp:test";
 	
-	// 멤버리스트로 리다이렉트!
-	response.sendRedirect("memberRegList.jsp");
+	int resultCnt = 0;
+
+	try{
+	// (연결) 커넥션개체 생성
+	conn = DriverManager.getConnection(jdbcUrl);
 	
+	String sql = "delete from member where userid=?";
+	
+	pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1,userid);
+	resultCnt = pstmt.executeUpdate();
+	} finally{
+		pstmt.close();
+		conn.close();
+		// 멤버리스트로 리다이렉트
+		response.sendRedirect("memberRegList.jsp");
+	}
+
  %>  
