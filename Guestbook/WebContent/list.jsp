@@ -11,7 +11,7 @@
 	}
 	GetMessageListService messageListService = GetMessageListService.getInstance();
 	MessageListView viewData = messageListService.getMessageList(pageNumber);
-	// test
+	// commit test
 %>
 
 <!DOCTYPE html>
