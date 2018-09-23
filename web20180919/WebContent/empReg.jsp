@@ -25,7 +25,7 @@
 	int resultCnt = 0;
 
 	try {
-		// 2. (연결) 커넥션개체 생성
+		// 커넥션 풀에서 커넥션 가져오기
 		conn = DriverManager.getConnection(jdbcUrl);
 
 		// 3. PreparedStatement 객체 생성

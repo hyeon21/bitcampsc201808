@@ -16,7 +16,7 @@
 	int resultCnt = 0;
 
 	try{
-	// (연결) 커넥션개체 생성
+	// 커넥션 풀에서 커넥션 가져오기
 	conn = DriverManager.getConnection(jdbcUrl);
 	
 	String sql = "delete from member where userid=?";

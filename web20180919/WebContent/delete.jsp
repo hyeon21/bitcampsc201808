@@ -20,7 +20,7 @@
 	int resultCnt = 0;
 
 	try{
-	// (연결) 커넥션개체 생성
+	// 커넥션 풀에서 커넥션을 구함
 	conn = DriverManager.getConnection(jdbcUrl);
 	
 	String sql = "delete from emp where empno=?";
@@ -30,6 +30,7 @@
 	resultCnt = pstmt.executeUpdate();
 	} finally{
 		pstmt.close();
+		// 커넥션 반환
 		conn.close();
 	}
 	
