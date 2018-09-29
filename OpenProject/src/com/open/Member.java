@@ -7,6 +7,10 @@ public class Member {
 	private String userName;
 	private String userPhoto;
 	
+	public Member() {
+		
+	}
+	
 	public Member(String userId, String password, String userName, String userPhoto) {
 		this.userId = userId;
 		this.password = password;

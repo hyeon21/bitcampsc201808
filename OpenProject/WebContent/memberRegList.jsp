@@ -7,7 +7,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,10 +72,13 @@ th, tr, td {
 			<td><%=rs.getString("userid")%></td>
 			<td><%=rs.getString("password")%></td>
 			<td><%=rs.getString("username")%></td>
-			<td><%=rs.getString("userphoto")%></td>
+			<td><img src="<%=request.getContextPath()%>/uploadfile/${fileName}" /></td>
 			<td><%=rs.getString("regdate")%></td>
 			<td><a href="editForm.jsp?userid=<%=rs.getString("userid")%>">수정</a>
 				<a href="delete.jsp?userid=<%=rs.getString("userid")%>">삭제</a></td>
+				<%-- <%
+					System.out.println(request.getContextPath());
+				%> --%>
 		</tr>
 		<%
 			} while (rs.next());

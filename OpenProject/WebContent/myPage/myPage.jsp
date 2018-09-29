@@ -7,8 +7,8 @@
 	pageEncoding="UTF-8"%>
 <%
 	String id = (String)request.getSession(false).getAttribute("userId"); // 키는 스트링, 밸류는 오브젝트타입이라 형변환이 필요
-	String name = ""; // 애플리케이션의 멤버리스트에서 뽑아낸 이름을 저장할 변수
-	String photo = ""; // 애플리케이션의 멤버리스트에서 뽑아낸 사진파일명을 저장할 변수
+	String name = ""; // DB에서 뽑아낸 이름을 저장할 변수
+	String photo = ""; // DB에서 뽑아낸 사진파일명을 저장할 변수
 	
 	Connection conn = null;
 	Statement stmt = null;
@@ -55,7 +55,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/default.css">
+<link rel="stylesheet" href="../css/default.css">
 <style>
 h2, td {
 	padding: 10px;
@@ -73,12 +73,12 @@ h2, td {
 </head>
 <body>
 
-	<%@ include file="common/header.jsp"%>
+	<%@ include file="../common/header.jsp"%>
 	<div id="contents">
 		<h2>회원 정보</h2>
 
 		<div id="memberPhoto">
-			<img src="./images/<%=photo%>">
+			<img src="../images/<%=photo%>">
 		</div>
 
 		<hr>

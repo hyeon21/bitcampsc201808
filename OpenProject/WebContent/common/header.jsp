@@ -10,10 +10,10 @@
 	
 	if(lid == null){
 	%>
-	<li><a href="loginForm.jsp">로그인</a></li>
+	<li><a href="<%= request.getContextPath()%>/loginForm.jsp">로그인</a></li>
 	<% } else { %>
-	<li><a href="logout.jsp">로그아웃</a></li>
+	<li><a href="<%= request.getContextPath()%>/logout.jsp">로그아웃</a></li>
 	<% } %>
-	<li><a href="myPage.jsp">마이페이지</a></li>
-	<li><a href="memberRegList.jsp">회원리스트</a></li>
+	<li><a href="<%= request.getContextPath()%>/myPage/myPage.jsp">마이페이지</a></li>
+	<li><a href="<%= request.getContextPath()%>/memberRegList.jsp">회원리스트</a></li>
 </ul>
