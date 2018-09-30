@@ -1,4 +1,4 @@
-
+<%@page import="service.MemberRegService"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="org.apache.commons.fileupload.FileItem"%>
@@ -13,9 +13,6 @@
 <%@ page import="model.MemberInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- 	<jsp:useBean id="memberInfo" class="model.MemberInfo">
-	<jsp:setProperty name="memberInfo" property="*"/>
-</jsp:useBean> --%>
 	
 <%
 	MemberInfo memberInfo = new MemberInfo();
@@ -82,31 +79,11 @@
 %>
 
 
-
-
 <%
-	Connection conn = null;
-	PreparedStatement pstmt = null;
+	MemberRegService regService = MemberRegService.getInstance();
+	regService.reg(memberInfo);
+	response.sendRedirect("index.jsp");
 
-	int resultCnt = 0;
-
-	try {
-		// 2018.09.30 커넥션 수정
-		conn = ConnectionProvider.getConnection();
-
-		// 3. PreparedStatement 객체 생성
-		String sql = "insert into Member(IDX, USERID, PASSWORD, USERNAME, USERPHOTO, REGDATE) values(IDX.NEXTVAL,?,?,?,?,sysdate)";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, memberInfo.getUserId());
-		pstmt.setString(2, memberInfo.getPassword());
-		pstmt.setString(3, memberInfo.getUserName());
-		pstmt.setString(4, memberInfo.getUserPhoto());
-		resultCnt = pstmt.executeUpdate();
-
-	} finally {
-		pstmt.close();
-		conn.close();
-	}
 %>
 
 <!DOCTYPE html>

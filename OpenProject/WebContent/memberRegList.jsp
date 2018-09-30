@@ -1,9 +1,10 @@
+<%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@ page import="com.open.Member"%>
+<%@ page import="model.MemberInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -47,14 +48,11 @@ th, tr, td {
 			Statement stmt = null;
 			ResultSet rs = null;
 
-			String jdbcUrl = "jdbc:apache:commons:dbcp:test";
-
 			try {
 				// 2. (연결) 커넥션개체 생성
 				// conn = DriverManager.getConnection(url, user, password);
 				// 커넥션 풀을 이용한다.
-				conn = DriverManager.getConnection(jdbcUrl);
-
+				conn = ConnectionProvider.getConnection();
 				// 3. Statement 객체 생성
 				stmt = conn.createStatement();
 
@@ -90,7 +88,9 @@ th, tr, td {
 		</tr>
 
 		<%
-			}
+				}
+			}catch(SQLException se){
+				System.out.println("회원 정보가 없습니다.");
 			} finally {
 				if (rs != null) {
 					try {
