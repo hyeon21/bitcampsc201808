@@ -1,3 +1,4 @@
+<%@page import="service.MemberRegService"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.DriverManager"%>
@@ -31,6 +32,7 @@ th, tr, td {
 </head>
 <body>
 	<%@ include file="common/header.jsp"%>
+	
 
 	<table>
 		<tr>
@@ -65,12 +67,13 @@ th, tr, td {
 					do {
 		%>
 
+
 		<tr>
 			<td><%=rs.getInt("idx")%></td>
 			<td><%=rs.getString("userid")%></td>
 			<td><%=rs.getString("password")%></td>
 			<td><%=rs.getString("username")%></td>
-			<td><img src="<%=request.getContextPath()%>/uploadfile/${fileName}" /></td>
+			<td><img src="<%= request.getContextPath()+"/uploadFile/"+ rs.getString("userphoto") %>" /></td>
 			<td><%=rs.getString("regdate")%></td>
 			<td><a href="editForm.jsp?userid=<%=rs.getString("userid")%>">수정</a>
 				<a href="deleteMember2.jsp?userid=<%=rs.getString("userid")%>">삭제</a></td>

@@ -82,7 +82,7 @@
 <%
 	MemberRegService regService = MemberRegService.getInstance();
 	regService.reg(memberInfo);
-	response.sendRedirect("index.jsp");
+	/* response.sendRedirect("index.jsp"); */
 
 %>
 
