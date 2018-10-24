@@ -60,13 +60,8 @@
 		</interceptor>
 	</interceptors>
 
-
-
-	<context:component-scan
-		base-package="com.bitcamp.openprac2" />
-
-
-
+	<context:component-scan base-package="com.bitcamp.openprac2" />
+		
 	<!-- 오라클 dataSource 빈 등록 -->
 	<!-- <beans:bean id="dataSourceOracle" class="com.mchange.v2.c3p0.ComboPooledDataSource"> 
 		<beans:property name="driverClass" value="oracle.jdbc.driver.OracleDriver" 
@@ -85,6 +80,13 @@
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 
+	<!-- spring - mybatis 연동 설정 -->
+	<beans:bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations"
+			value="classpath:com/bitcamp/openprac2/mapper/mybatis/*.xml" />
+	</beans:bean>
 
 	<!-- PlatformTransactionManager 빈 설정 -->
 	<beans:bean id="transactionManager"
@@ -95,17 +97,28 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 
-
 	<!-- JDBC 템플릿 빈 등록 -->
 	<beans:bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource" />
+
+
+	<!-- sqlSessionTemplate 빈 등록 -->
+	<beans:bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0"
+			ref="sqlSessionFactory" />
+	</beans:bean>
+
+
 
 	<!-- MEMBER DAO 등록 -->
 	<beans:bean id="jdbcTemplateMemberDao"
 		class="com.bitcamp.openprac2.dao.JDBCTemplateMemberDao" />
 	<beans:bean id="jdbcTemplatemessageDao"
 		class="com.bitcamp.openprac2.dao.JDBCTemplateMessageDao" />
+	<beans:bean id="mybatisMemberDao"
+		class="com.bitcamp.openprac2.dao.MybatisMemberDao" />
 
 
 	<!-- 서비스등록 -->

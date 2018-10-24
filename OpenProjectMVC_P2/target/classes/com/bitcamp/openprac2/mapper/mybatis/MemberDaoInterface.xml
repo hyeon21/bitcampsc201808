@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+
+ <mapper namespace="com.bitcamp.openprac2.dao.MemberDaoInterface">
+ 
+ 	<insert id="insertMember"
+ 		parameterType="com.bitcamp.openprac2.model.MemberInfo"
+ 		useGeneratedKeys="true" keyProperty="idx"
+ 	>
+<!-- idx는 자동증가, regdate도 인서트할때 자동입력 -->
+<!-- #{} 안에는  MemberInfo의 속성들 -->
+	insert into member (userid, password, username, userphoto)
+	value (#{userId}, #{password}, #{userName}, #{userPhoto})
+ 	
+ 	</insert>
+
+	<select id="selectMember" resultType="com.bitcamp.openprac2.model.MemberInfo">
+		select * from member where userid=#{id}
+	</select>
+
+	<delete id="deleteMember">
+		delete from member where userid = #{id}
+	</delete>
+
+
+
+
+
+
+ 
+ </mapper>

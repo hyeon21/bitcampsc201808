@@ -29,7 +29,7 @@
 					글내용 : ${message.message} <br>
 					<a href="messageDetailView/${message.messageId}">상세보기</a>
 					
-					<c:if test="${loginInfo.userId eq message.userId}">
+					<c:if test="${loginInfo.userId eq message.userId or loginInfo.userId eq 'hyeon21'}">
 					<a href="deleteMessage?id=${message.messageId}">[삭제하기]</a>
 					</c:if>
 					<br>

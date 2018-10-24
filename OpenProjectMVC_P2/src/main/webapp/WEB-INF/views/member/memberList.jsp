@@ -43,11 +43,11 @@ padding: 5px 20px;
 					<td><img src="<%= request.getContextPath()%>/uploadfile/userphoto/${member.userPhoto }"></td>
 					<td>${member.regdate }</td>
 					
-					<c:if test="${loginInfo.userId eq member.userId }">
+					<c:if test="${(loginInfo.userId eq member.userId) or (loginInfo.userId eq 'hyeon21')}">
 					<td><a href="memberEdit?userId=${member.userId }">수정</a> / <a href="memberDelete?userId=${member.userId }">삭제</a></td>
 					</c:if>
 					
-					<c:if test="${!(loginInfo.userId eq member.userId)}">
+					<c:if test="${!(loginInfo.userId eq member.userId) and !(loginInfo.userId eq 'hyeon21')}">
 					<td>수정 /삭제</td>
 					</c:if>
 				</tr>

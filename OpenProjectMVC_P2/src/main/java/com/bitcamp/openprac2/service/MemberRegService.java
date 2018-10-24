@@ -7,10 +7,13 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bitcamp.openprac2.dao.JDBCTemplateMemberDao;
+import com.bitcamp.openprac2.dao.MemberDaoInterface;
+import com.bitcamp.openprac2.dao.MybatisMemberDao;
 import com.bitcamp.openprac2.model.MemberInfo;
 
 public class MemberRegService {
@@ -18,15 +21,24 @@ public class MemberRegService {
 	/*@Autowired
 	private MemberDao memberDao;*/
 	
-	@Autowired
-	private JDBCTemplateMemberDao memberDao;
+	/*@Autowired
+	private JDBCTemplateMemberDao memberDao;*/
 	
-	// private Connection conn;
+	/*@Autowired
+	private MybatisMemberDao memberDao;*/
+	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	private MemberDaoInterface memberDao;
+	
 	
 	 @Transactional
 	public int memberReg(MemberInfo memberInfo, HttpServletRequest request) throws SQLException, IllegalStateException, IOException{
 		
-		// conn = ConnectionProvider.getConnection();
+		 memberDao=sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		 
+		 
 		int resultCnt = 0;
 		
 		// DB 저장용 파일 이름, 물리적 저장할때의 이름
@@ -57,7 +69,7 @@ public class MemberRegService {
 		//try {
 		//	conn.setAutoCommit(false);
 
-			resultCnt = memberDao.insert(memberInfo);
+			resultCnt = memberDao.insertMember(memberInfo);
 			
 			System.out.println("신규 회원의 인덱스 값 : " + memberInfo.getIdx());
 			
