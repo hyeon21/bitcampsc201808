@@ -27,3 +27,14 @@
 ## 2018.09.22
 ### GuestBook 
 - writeMessage.jsp에 리스트로 돌아가는 sendRedirect 추가
+
+## 2018.10.23
+### OpenProjectMVC_P2
+- 오픈프로젝트 스프링으로 이사했습니다~
+- 회원가입, 로그인/로그아웃, 회원정보 수정/삭제, 방명록
+- JdbcTemplate 이용 
+
+## 2018.10.24
+### OpenProjectMVC_P2
+- MyBatis로 바꾸는중...
+- 회원가입, 로그인, 회원정보삭제
