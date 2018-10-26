@@ -18,7 +18,7 @@ public class MessageListService {
 	JDBCTemplateMessageDao messageDao;
 
 	// 한 페이지에 보여줄 메세지의 수
-	private static final int MESSAGE_COUNT_PER_PAGE = 3;
+	private static final int MESSAGE_COUNT_PER_PAGE = 10;
 
 	@Transactional
 	public MessageListView getMessageList(int pageNumber) throws SQLException {

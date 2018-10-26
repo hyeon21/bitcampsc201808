@@ -13,6 +13,7 @@
 	<h1> 방명록 </h1>
 	<form method="post">
 		이름: <input type="text" name="userId" value="${loginInfo.userId }" readonly/> <br />
+		<input type="hidden" name="userIdx" value="${loginInfo.idx}">
 		메시지:<textarea name="message" cols="30" row="3" ></textarea> <br />
 		<input type="submit" value="메시지 남기기" />
 	</form>

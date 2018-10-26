@@ -42,9 +42,11 @@ public class MemberLoginService {
 		// 멤버가 있고 패스워드가 일치하는지 확인
 		if(memberInfo != null && (memberInfo.getPassword().equals(pw))) {
 				// 로그인 처리 : 세션에 사용자 데이터 저장 
+				// 보안을 위해서 패스워드를 비워준다.
 				memberInfo.setPassword("");
 				
 				session.setAttribute("loginInfo", memberInfo);
+				System.out.println("로그인한 멤버의 인덱스 : "+memberInfo.getIdx());
 				
 				result = true;
 			}

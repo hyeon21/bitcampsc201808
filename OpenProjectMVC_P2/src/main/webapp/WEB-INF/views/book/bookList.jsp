@@ -8,6 +8,17 @@
 <meta charset="UTF-8">
 <title>Member Book</title>
 <link rel="stylesheet" href="../css/default.css">
+<style>
+table{
+	width: 1000px;
+	border: 1px solid black;
+}
+td{
+	border: 1px solid black;
+	padding: 10px;
+}
+
+</style>
 </head>
 <body>
 
@@ -20,30 +31,47 @@
 	<c:if test="${viewData.isEmpty() }">
 작성된 방명록 메세지가 없습니다.
 	</c:if>
+	
+	<table>
+		<tr>
+			<th>글번호</th>
+			<th>작성자</th>
+			<th>게시글</th>
+			<th>좋아요</th>
+			<th>관리</th>
+		</tr>
 
 	<c:if test="${!viewData.isEmpty() }">
-		<ul>
 			<c:forEach var="message" items="${viewData.messageList}">
-				<li>글번호 : ${message.messageId}<br>
-					작성자 : ${message.userId} <br>
-					글내용 : ${message.message} <br>
-					<a href="messageDetailView/${message.messageId}">상세보기</a>
+			<tr>
+				<td width=50>${message.messageId}</td>
+				<td width=60>${message.userId}</td>
+				<td>${message.message}</td>
+				<td width=50>
+					<c:forEach var="like" items="${countList}">
+						<c:if test="${like.messageId eq message.messageId}">
+							${like.likeCnt}
+						</c:if>
+					</c:forEach>
+				</td>
+				<td width=250>
+					<a href="messageLike?messageId=${message.messageId}&userIdx=${loginInfo.idx}">좋아요</a>
+					<a href="messageDetailView/${message.messageId}">[상세보기]</a>
 					
 					<c:if test="${loginInfo.userId eq message.userId or loginInfo.userId eq 'hyeon21'}">
 					<a href="deleteMessage?id=${message.messageId}">[삭제하기]</a>
 					</c:if>
-					<br>
-					
-				</li>
-			</c:forEach>
-		</ul>
+					</td>
+					</c:forEach>
+			</c:if>
+		</table>
+		
 		
 		<c:forEach var="num" begin="1" end="${viewData.pageTotalCount}">
 			<a href="bookList?page=${num}">[${num}]</a>
 		
 		</c:forEach>
 		
-	</c:if>
 
 </body>
 </html>

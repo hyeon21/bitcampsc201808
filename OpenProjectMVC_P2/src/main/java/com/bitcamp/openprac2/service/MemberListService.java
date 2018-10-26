@@ -18,6 +18,7 @@ public class MemberListService {
 	public List<MemberInfo> getMemberList() throws SQLException {
 
 		List<MemberInfo> memberList = memberDao.selectAll();
+		System.out.println("멤버리스트 : "+memberList);
 		return memberList;
 	}
 }
