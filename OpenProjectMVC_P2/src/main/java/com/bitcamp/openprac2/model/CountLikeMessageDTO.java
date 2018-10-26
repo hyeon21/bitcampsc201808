@@ -1,6 +1,6 @@
 package com.bitcamp.openprac2.model;
 
-public class CountMessageLike {
+public class CountLikeMessageDTO {
 
 	private int messageId;
 	private int likeCnt;
@@ -23,7 +23,7 @@ public class CountMessageLike {
 
 	@Override
 	public String toString() {
-		return "CountMessageLike [messageId=" + messageId + ", likeCnt=" + likeCnt + "]";
+		return "CountLikeMessage [messageId=" + messageId + ", likeCnt=" + likeCnt + "]";
 	}
 
 }

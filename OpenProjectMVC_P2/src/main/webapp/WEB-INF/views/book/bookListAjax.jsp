@@ -28,6 +28,24 @@ text-align: center;
 }
 
 </style>
+
+
+<script>
+	$(document).ready(function() {});
+			
+		$.ajax({
+			type: "GET",
+		
+			
+			
+			
+		});
+	
+	
+</script>
+
+
+
 </head>
 <body>
 
@@ -56,11 +74,16 @@ text-align: center;
 				<td width=60>${message.userId}</td>
 				<td>${message.message}</td>
 				<td class="center" width=50>
-					<c:forEach var="like" items="${countList}">
-						<c:if test="${like.messageId eq message.messageId}">
-							${like.likeCnt}
-						</c:if>
-					</c:forEach>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				</td>
 				<td class="center" width=320>
 					<a href="likeMessage?messageId=${message.messageId}&userIdx=${loginInfo.idx}">[좋아요]</a>

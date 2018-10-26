@@ -1,6 +1,6 @@
 package com.bitcamp.openprac2.model;
 
-public class MessageLike {
+public class LikeMessageDTO {
 
 	private int messageId;
 	private int userIdx;

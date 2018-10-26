@@ -6,7 +6,6 @@ public class Message {
 	private int userIdx;
 	private String userId;
 	private String message;
-	private int likeCnt;
 
 	public int getMessageId() {
 		return messageId;
@@ -38,14 +37,6 @@ public class Message {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public int getLikeCnt() {
-		return likeCnt;
-	}
-
-	public void setLikeCnt(int likeCnt) {
-		this.likeCnt = likeCnt;
 	}
 
 	@Override

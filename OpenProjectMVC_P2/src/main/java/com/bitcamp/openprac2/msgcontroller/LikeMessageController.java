@@ -1,4 +1,4 @@
-package com.bitcamp.openprac2.messagelikeController;
+package com.bitcamp.openprac2.msgcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,26 +6,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitcamp.openprac2.messagelikeservice.MessageLikeService;
-import com.bitcamp.openprac2.model.MessageLike;
+import com.bitcamp.openprac2.model.LikeMessageDTO;
+import com.bitcamp.openprac2.msgservice.LikeMessageService;
 
 @Controller
-public class messageLikeController {
+public class LikeMessageController {
 
 	@Autowired
-	private MessageLikeService messageLikeService;
+	private LikeMessageService likeMessageService;
 	
-	@RequestMapping("/book/messageLike")
+	@RequestMapping("/book/likeMessage")
 	public ModelAndView messageLike(@RequestParam("messageId") int messageId,
 									@RequestParam("userIdx") int userIdx) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MessageLike messageLike = new MessageLike();
-		messageLike.setMessageId(messageId);
-		messageLike.setUserIdx(userIdx);
+		LikeMessageDTO likeMessage = new LikeMessageDTO();
+		likeMessage.setMessageId(messageId);
+		likeMessage.setUserIdx(userIdx);
 		
-		messageLikeService.insertMessageLike(messageLike);
+		likeMessageService.insertLikeMessage(likeMessage);
 		
 		modelAndView.setViewName("redirect:/book/bookList");
 		
