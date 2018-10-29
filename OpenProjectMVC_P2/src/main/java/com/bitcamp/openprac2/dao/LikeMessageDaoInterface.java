@@ -15,4 +15,5 @@ public interface LikeMessageDaoInterface {
 	public CountLikeMessageDTO getCountLikeMessage(int messageId);
 	public List<CountLikeMessageDTO> selectLikeMessageAll();
 	public List<Message> getMessageAll();
+	public void deleteLikeMessageAll(int messageId);
 }
