@@ -38,3 +38,7 @@
 ### OpenProjectMVC_P2
 - MyBatis로 바꾸는중...
 - 회원가입, 로그인
+
+## 2018.10.24
+### OpenProjectMVC_P2
+- 방명록 좋아요 기능 
