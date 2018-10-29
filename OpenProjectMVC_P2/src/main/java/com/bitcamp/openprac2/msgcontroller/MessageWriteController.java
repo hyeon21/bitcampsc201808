@@ -30,7 +30,7 @@ public class MessageWriteController {
 		writeService.write(message);
 		
 		// 리다이렉트 뷰... 뷰 이름에 redirect: 접두어를 붙이면 지정한 페이지로 리다이렉트.
-		return "redirect:/book/bookList";
+		return "redirect:/book/bookListAjax";
 	}
 	
 	

@@ -2,6 +2,7 @@
 package com.bitcamp.openprac2.msgcontroller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.openprac2.model.CountLikeMessageDTO;
 import com.bitcamp.openprac2.model.MessageListView;
+import com.bitcamp.openprac2.msgservice.CountLikeMessageSelectAllService;
 import com.bitcamp.openprac2.msgservice.CountLikeMessageService;
+import com.bitcamp.openprac2.msgservice.GetLikeCountAllService;
 import com.bitcamp.openprac2.msgservice.MessageListService;
 import com.bitcamp.openprac2.service.ServiceException;
 
@@ -25,10 +28,22 @@ public class MessageListController {
 	private MessageListService service;
 	
 	@Autowired
-	private CountLikeMessageService countMessageLikeService;
+	private CountLikeMessageSelectAllService likeService;
 	
-	@RequestMapping("/book/bookList") // /guest/list?page=1 이런식으로...
+	@Autowired
+	private GetLikeCountAllService getLikeCntService;
+	
+	@RequestMapping("/book/bookListAjax") // /guest/list?page=1 이런식으로...
 	public ModelAndView getMessageList(HttpServletRequest request) throws ServiceException, SQLException {
+	
+		System.out.println("메세지리스트컨트롤러-북리스트아작경로-겟메세지리스트 메서드 진입");
+		
+	List<CountLikeMessageDTO> likeList = new ArrayList<CountLikeMessageDTO>(); 
+			
+	//likeList = likeService.getCountLikeMessageAll();
+	
+	// 181029 test
+	likeList = getLikeCntService.getLikeCountAll();
 	
 	String pageNumberStr = request.getParameter("page");
 	
@@ -39,15 +54,15 @@ public class MessageListController {
 
 	MessageListView viewData = service.getMessageList(pageNumber);
 	
-	List<CountLikeMessageDTO> countList = countMessageLikeService.countMessageLike();
-	
 	ModelAndView modelAndView = new ModelAndView();
 	
 	// 뷰 이름 설정
-	modelAndView.setViewName("book/bookList");
+	modelAndView.setViewName("book/bookListAjax");
 	// 뷰에 결과데이터를 전달(공유)하자
 	modelAndView.addObject("viewData", viewData);
-	modelAndView.addObject("countList", countList);
+	modelAndView.addObject("likeList", likeList);
+	
+	System.out.println("메세지리스트컨트롤러 - likeList : " + likeList);
 	
 	return modelAndView;
 	}

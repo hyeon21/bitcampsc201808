@@ -21,7 +21,7 @@ public class MessageDeleteController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String deleteMessage(@RequestParam("id") int messageId) throws SQLException {
 		
-		String viewName = "redirect:/book/bookList";
+		String viewName = "redirect:/book/bookListAjax";
 		
 		try {
 			deleteService.deleteMessage(messageId);

@@ -13,13 +13,21 @@
  		select * from message_like where messageid=#{messageId} and useridx=#{userIdx}
  	</select>
  	
- 	<select id="countLikeMessage" resultType="com.bitcamp.openprac2.model.CountLikeMessageDTO">
+ 	<select id="getCountLikeMessage" resultType="com.bitcamp.openprac2.model.CountLikeMessageDTO">
+ 		select messageid, count(useridx) as likecnt from message_like group by messageid having messageid=#{messageId}
+ 	</select>
+ 	
+ 	<select id="selectLikeMessageAll" resultType="com.bitcamp.openprac2.model.CountLikeMessageDTO">
  		select messageid, count(useridx) as likecnt from message_like group by messageid
  	</select>
+
+ 	<select id="getMessageAll" resultType="com.bitcamp.openprac2.model.Message">
+ 		select * from message_board
+ 	</select>
+ 	
  	
  	<delete id="deleteLikeMessage" parameterType="com.bitcamp.openprac2.model.LikeMessageDTO">
  		delete from message_like where messageid=#{messageId} and useridx=#{userIdx}
  	</delete>
- 
  
  </mapper>

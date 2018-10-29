@@ -1,9 +1,5 @@
 package com.bitcamp.openprac2.msgservice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +15,23 @@ public class CountLikeMessageService {
 	private LikeMessageDaoInterface likeMessageDao;
 	
 	@Transactional
-	public List<CountLikeMessageDTO> countMessageLike() {
+	public int getCountLikeMessage(int messageId) {
 		
-		List<CountLikeMessageDTO> resultList = new ArrayList<CountLikeMessageDTO>();
+		CountLikeMessageDTO likeCnt;
+		
 		likeMessageDao = sqlSessionTemplate.getMapper(LikeMessageDaoInterface.class);
 		
-		resultList = likeMessageDao.countLikeMessage();
+		likeCnt = likeMessageDao.getCountLikeMessage(messageId);
+
+		System.out.println("카운트라이크메세지서비스 - likeCnt : " + likeCnt);
+
+		int onlyLikeCnt = 0;
 		
-		return resultList;
+		if(likeCnt==null) {
+			onlyLikeCnt = 0;
+		} else {
+		onlyLikeCnt = likeCnt.getLikeCnt();
+		}
+		return onlyLikeCnt;
 	}
 }

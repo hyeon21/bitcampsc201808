@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Member Book</title>
 <link rel="stylesheet" href="../css/default.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style>
 *{
 text-decoration: none;
@@ -26,25 +27,11 @@ td{
 .center{
 text-align: center;
 }
+.likeTd{
+text-align: center;
+}
 
 </style>
-
-
-<script>
-	$(document).ready(function() {});
-			
-		$.ajax({
-			type: "GET",
-		
-			
-			
-			
-		});
-	
-	
-</script>
-
-
 
 </head>
 <body>
@@ -53,9 +40,8 @@ text-align: center;
 
 	<h3><a href="writeMessage">메세지 남기기</a></h3>
 
-
 	<c:if test="${viewData.isEmpty() }">
-작성된 방명록 메세지가 없습니다.
+		작성된 방명록 메세지가 없습니다.
 	</c:if>
 	
 	<table>
@@ -66,27 +52,33 @@ text-align: center;
 			<th>좋아요</th>
 			<th>관리</th>
 		</tr>
+	
 
+	
 	<c:if test="${!viewData.isEmpty() }">
-			<c:forEach var="message" items="${viewData.messageList}">
+		<c:forEach var="message" items="${viewData.messageList}">
 			<tr>
 				<td class="center" width=50>${message.messageId}</td>
 				<td width=60>${message.userId}</td>
 				<td>${message.message}</td>
-				<td class="center" width=50>
+				<td class="likeTd" id="like_${message.messageId}" width=50>
+					<c:if test="${likeList.isEmpty()}">
+						0
+					</c:if>
+					
+					<c:if test="${!likeList.isEmpty() }">
+						<c:forEach var="like" items="${likeList }">
+							<c:if test="${message.messageId eq like.messageId}">
+								${like.likeCnt}
+							</c:if>
+						</c:forEach>
+					</c:if>
+					</td>
+					
+					
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				</td>
 				<td class="center" width=320>
-					<a href="likeMessage?messageId=${message.messageId}&userIdx=${loginInfo.idx}">[좋아요]</a>
+				<button class="likeBnt" value="${message.messageId}">좋아요!</button>
 					<a href="messageDetailView/${message.messageId}">[상세보기]</a>
 					
 					<c:if test="${loginInfo.userId eq message.userId or loginInfo.userId eq 'hyeon21'}">
@@ -95,6 +87,7 @@ text-align: center;
 					
 					<a href="comment?messageId=${message.messageId}">[댓글달기]</a>
 					</td>
+					
 					</c:forEach>
 			</c:if>
 		</table>
@@ -102,9 +95,24 @@ text-align: center;
 		
 		<c:forEach var="num" begin="1" end="${viewData.pageTotalCount}">
 			<a href="bookList?page=${num}">[${num}]</a>
-		
 		</c:forEach>
 		
+<script>
+	$('.likeBnt').click(function() {
+		var messageId = $(this).val();
+		var userIdx = ${loginInfo.idx}
+		 $.ajax({
+		 	type: "POST",
+			url: "likeMessage",
+			data: {"messageId":messageId, "userIdx":userIdx},
+		 	success: function(data){
+		 		$('#like_'+messageId).empty(),
+				$('#like_'+messageId).append(data);
+		 	}                                                             
+		});
+	});
+
+</script>
 
 </body>
 </html>

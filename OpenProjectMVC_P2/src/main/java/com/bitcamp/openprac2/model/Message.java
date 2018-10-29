@@ -3,7 +3,6 @@ package com.bitcamp.openprac2.model;
 public class Message {
 
 	private int messageId;
-	private int userIdx;
 	private String userId;
 	private String message;
 
@@ -13,14 +12,6 @@ public class Message {
 
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
-	}
-
-	public int getUserIdx() {
-		return userIdx;
-	}
-
-	public void setUserIdx(int userIdx) {
-		this.userIdx = userIdx;
 	}
 
 	public String getUserId() {

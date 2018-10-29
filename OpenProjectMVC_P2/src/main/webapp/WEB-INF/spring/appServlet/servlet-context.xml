@@ -157,4 +157,10 @@
 	<beans:bean id="countLikeMessageService"
 		class="com.bitcamp.openprac2.msgservice.CountLikeMessageService" />
 
+	<beans:bean id="countLikeMessageSelectAllService"
+		class="com.bitcamp.openprac2.msgservice.CountLikeMessageSelectAllService" />
+
+	<beans:bean id="getLikeCountAllService"
+		class="com.bitcamp.openprac2.msgservice.GetLikeCountAllService" />
+
 </beans:beans>
