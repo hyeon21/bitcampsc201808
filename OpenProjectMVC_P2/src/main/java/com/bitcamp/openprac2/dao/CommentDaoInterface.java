@@ -10,5 +10,5 @@ public interface CommentDaoInterface {
 	public List<CommentDTO> selectCommentList(int messageId);
 	public void deleteComment(int commentNo);
 	public void deleteCommentAll(int messageId);
-
+	public void updateComment(String comment, int commentNo);
 }

@@ -174,5 +174,8 @@
 
 	<beans:bean id="deleteCommentAllService"
 		class="com.bitcamp.openprac2.commentservice.DeleteCommentAllService" />
+		
+	<beans:bean id="editCommentService"
+		class="com.bitcamp.openprac2.commentservice.EditCommentService" />
 
 </beans:beans>

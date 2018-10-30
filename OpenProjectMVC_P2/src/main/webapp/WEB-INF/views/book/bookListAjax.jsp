@@ -134,14 +134,15 @@ text-align: center;
 		 		console.log(commList);
 		 		
 		 		if(commList.length==0){
-		 			comm += '<td colspan=6>NO COMMENT!</td>';
+		 			comm += 'NO COMMENT!';
 		 		}else{
 		 			for(var i=0; i<commList.length; i++){
 		 				console.log(commList[i]);
 		 				comm += '댓글번호 : '+commList[i].commentNo+'<br>';
 		 				comm += '작성자 : '+commList[i].userId+'<br>';
 		 				comm += '코멘트 : '+commList[i].comment+'<br>';
-		 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a><br><br>';
+		 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a>';
+		 				comm += '<a href="editComment?commentNo='+commList[i].commentNo+'">[수정하기]</a><br><br>';
 		 			}
 		 		}
 		 		comm += "</td>";

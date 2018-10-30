@@ -22,5 +22,9 @@
 	<delete id="deleteCommentAll" >
 		delete from comment where messageId=#{messageId}
 	</delete>
+	
+	<update id="updateComment">
+		update comment set comment=#{param1} where commentno=#{param2}
+	</update>
 
 </mapper>
