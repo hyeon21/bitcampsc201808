@@ -163,4 +163,16 @@
 	<beans:bean id="getLikeCountAllService"
 		class="com.bitcamp.openprac2.msgservice.GetLikeCountAllService" />
 
+	<beans:bean id="writeCommentService"
+		class="com.bitcamp.openprac2.commentservice.WriteCommentService" />
+
+	<beans:bean id="getCommentListService"
+		class="com.bitcamp.openprac2.commentservice.GetCommentListService" />
+
+	<beans:bean id="deleteCommentService"
+		class="com.bitcamp.openprac2.commentservice.DeleteCommentService" />
+
+	<beans:bean id="deleteCommentAllService"
+		class="com.bitcamp.openprac2.commentservice.DeleteCommentAllService" />
+
 </beans:beans>

@@ -10,12 +10,12 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
-	<h1> 방명록 </h1>
+	<h1> 댓글 </h1>
 	<form method="post">
-		이름: <input type="text" name="userId" value="${loginInfo.userId }" readonly/> <br />
+		아이디: <input type="text" name="userId" value="${loginInfo.userId }" readonly/> <br />
 		<input type="hidden" name="userIdx" value="${loginInfo.idx}">
-		메시지:<textarea name="message" cols="30" row="3" ></textarea> <br />
-		<input type="submit" value="메시지 남기기" />
+		댓글:<textarea name="comment" cols="30" row="3" ></textarea> <br />
+		<input type="submit" value="댓글달기" />
 	</form>
 </body>
 </html>

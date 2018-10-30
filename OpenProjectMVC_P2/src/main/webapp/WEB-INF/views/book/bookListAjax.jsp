@@ -74,8 +74,6 @@ text-align: center;
 						</c:forEach>
 					</c:if>
 					</td>
-					
-					
 				
 				<td class="center" width=320>
 				<button class="likeBnt" value="${message.messageId}">좋아요!</button>
@@ -86,8 +84,14 @@ text-align: center;
 					</c:if>
 					
 					<a href="comment?messageId=${message.messageId}">[댓글달기]</a>
+					<button class="commBtn" value="${message.messageId}">댓글...댓글을 보자!</button>
 					</td>
 					
+				</tr>
+			<!-- ---------------------------------------------------- -->
+				<tr id="comm_${message.messageId}">
+		
+				</tr>
 					</c:forEach>
 			</c:if>
 		</table>
@@ -109,6 +113,40 @@ text-align: center;
 		 		$('#like_'+messageId).empty(),
 				$('#like_'+messageId).append(data);
 		 	}                                                             
+		});
+	});
+	
+	
+	$('.commBtn').click(function() {
+
+		var msgId = $(this).val();
+		var commList = [];
+		var comm = "<td colspan=6>";
+		
+		
+		 $.ajax({
+			type: "GET",
+			url: "viewComment",
+			data: {"msgId":msgId},
+			dataType: "JSON",
+		 	success: function(data){
+		 		commList = data;
+		 		console.log(commList);
+		 		
+		 		if(commList.length==0){
+		 			comm += '<td colspan=6>NO COMMENT!</td>';
+		 		}else{
+		 			for(var i=0; i<commList.length; i++){
+		 				console.log(commList[i]);
+		 				comm += '댓글번호 : '+commList[i].commentNo+'<br>';
+		 				comm += '작성자 : '+commList[i].userId+'<br>';
+		 				comm += '코멘트 : '+commList[i].comment+'<br>';
+		 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a><br><br>';
+		 			}
+		 		}
+		 		comm += "</td>";
+		 		$('#comm_'+msgId).append(comm);
+		 	}
 		});
 	});
 

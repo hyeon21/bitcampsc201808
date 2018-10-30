@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitcamp.openprac2.dao.CommentDaoInterface">
+
+	<insert id="insertComment"
+		parameterType="com.bitcamp.openprac2.model.CommentDTO"
+		useGeneratedKeys="true" keyProperty="commentNo">
+		insert into comment (messageid, userid, comment, commentdate) 
+		value (#{messageId}, #{userId}, #{comment}, now())
+	</insert>
+
+	<select id="selectCommentList" resultType="com.bitcamp.openprac2.model.CommentDTO">
+		select * from comment where messageid=#{messageId}
+	</select>
+	
+	<delete id="deleteComment" >
+		delete from comment where commentno=#{commentNo}
+	</delete>
+	
+	<delete id="deleteCommentAll" >
+		delete from comment where messageId=#{messageId}
+	</delete>
+
+</mapper>
