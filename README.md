@@ -42,3 +42,7 @@
 ## 2018.10.29
 ### OpenProjectMVC_P2
 - 방명록 좋아요 기능 추가
+
+## 2018.10.30
+### OpenProjectMVC_P2
+- 방명록 
