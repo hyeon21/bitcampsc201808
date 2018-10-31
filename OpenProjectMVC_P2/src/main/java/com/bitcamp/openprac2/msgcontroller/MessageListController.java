@@ -3,7 +3,6 @@ package com.bitcamp.openprac2.msgcontroller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.openprac2.model.CountLikeMessageDTO;
 import com.bitcamp.openprac2.model.MessageListView;
-import com.bitcamp.openprac2.msgservice.CountLikeMessageSelectAllService;
-import com.bitcamp.openprac2.msgservice.CountLikeMessageService;
 import com.bitcamp.openprac2.msgservice.GetLikeCountAllService;
 import com.bitcamp.openprac2.msgservice.MessageListService;
 import com.bitcamp.openprac2.service.ServiceException;
@@ -27,9 +24,9 @@ public class MessageListController {
 	@Autowired
 	private MessageListService service;
 	
-	@Autowired
+/*	@Autowired
 	private CountLikeMessageSelectAllService likeService;
-	
+	*/
 	@Autowired
 	private GetLikeCountAllService getLikeCntService;
 	

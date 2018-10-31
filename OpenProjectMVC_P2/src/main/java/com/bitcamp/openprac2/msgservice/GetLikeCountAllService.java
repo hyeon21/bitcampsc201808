@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bitcamp.openprac2.dao.LikeMessageDaoInterface;
 import com.bitcamp.openprac2.model.CountLikeMessageDTO;
-import com.bitcamp.openprac2.model.LikeMessageDTO;
 import com.bitcamp.openprac2.model.Message;
 
 public class GetLikeCountAllService {

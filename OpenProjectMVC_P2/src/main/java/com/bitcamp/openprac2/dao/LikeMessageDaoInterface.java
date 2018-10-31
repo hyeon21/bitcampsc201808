@@ -13,7 +13,6 @@ public interface LikeMessageDaoInterface {
 	public void insertLikeMessage(LikeMessageDTO likeMessage);
 	public int deleteLikeMessage(LikeMessageDTO likeMessage);
 	public CountLikeMessageDTO getCountLikeMessage(int messageId);
-	public List<CountLikeMessageDTO> selectLikeMessageAll();
 	public List<Message> getMessageAll();
 	public void deleteLikeMessageAll(int messageId);
 }

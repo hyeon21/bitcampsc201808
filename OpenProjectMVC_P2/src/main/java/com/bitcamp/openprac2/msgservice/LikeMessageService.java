@@ -16,7 +16,6 @@ public class LikeMessageService {
 	
 	@Transactional
 	public void insertLikeMessage(LikeMessageDTO likeMessage) {
-		int resultCnt=0;
 		
 		likeMessageDao = sqlSessionTemplate.getMapper(LikeMessageDaoInterface.class);
 		

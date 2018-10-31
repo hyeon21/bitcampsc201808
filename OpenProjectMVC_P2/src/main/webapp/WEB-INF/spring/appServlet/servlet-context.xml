@@ -77,7 +77,7 @@
 			value="com.mysql.jdbc.Driver" />
 		<beans:property name="jdbcUrl"
 			value="jdbc:mysql://localhost/openproject?characterEncoding=utf8" />
-		<beans:property name="user" value="bit" />
+		<beans:property name="user" value="root" />
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 
@@ -157,8 +157,8 @@
 	<beans:bean id="countLikeMessageService"
 		class="com.bitcamp.openprac2.msgservice.CountLikeMessageService" />
 
-	<beans:bean id="countLikeMessageSelectAllService"
-		class="com.bitcamp.openprac2.msgservice.CountLikeMessageSelectAllService" />
+<!-- 	<beans:bean id="countLikeMessageSelectAllService"
+		class="com.bitcamp.openprac2.msgservice.CountLikeMessageSelectAllService" /> -->
 
 	<beans:bean id="getLikeCountAllService"
 		class="com.bitcamp.openprac2.msgservice.GetLikeCountAllService" />

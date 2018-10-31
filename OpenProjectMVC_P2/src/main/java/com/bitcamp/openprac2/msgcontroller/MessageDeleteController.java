@@ -23,6 +23,7 @@ public class MessageDeleteController {
 	@Autowired
 	private DeleteCommentAllService deleteCommentAllService;
 	
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String deleteMessage(@RequestParam("id") int messageId) throws SQLException {
 		
