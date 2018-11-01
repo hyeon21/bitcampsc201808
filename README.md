@@ -47,3 +47,6 @@
 ### OpenProjectMVC_P2
 - 방명록 댓글달기 추가
 
+## 2018.10.30
+### OpenProjectMVC_P2
+- 방명록 댓글보기 
