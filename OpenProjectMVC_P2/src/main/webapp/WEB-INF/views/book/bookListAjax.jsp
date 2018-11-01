@@ -89,8 +89,8 @@ text-align: center;
 					
 				</tr>
 			<!-- ---------------------------------------------------- -->
-				<tr id="comm_${message.messageId}">
-		
+				<tr id="commHidden_${message.messageId}" style="display:none;">
+					<%-- <td id="comm_${message.messageId}" colspan="6" >ss</td> --%>
 				</tr>
 					</c:forEach>
 			</c:if>
@@ -100,6 +100,55 @@ text-align: center;
 		<c:forEach var="num" begin="1" end="${viewData.pageTotalCount}">
 			<a href="bookList?page=${num}">[${num}]</a>
 		</c:forEach>
+		
+
+<script>
+$(document).ready(function(){
+	
+	$('.commBtn').click(function() {
+		var msgId = $(this).val();
+		alert(msgId);
+			var commList = [];
+			var comm = "<td colspan=6>";
+		 
+			status = $('#commHidden_'+msgId).css("display");
+			if(status=="none"){
+				status = $('#commHidden_'+msgId).css("display", "");
+				
+				$.ajax({
+					type: "GET",
+					url: "viewComment",
+					data: {"msgId":msgId},
+					dataType: "JSON",
+				 	success: function(data){
+				 		commList = data;
+				 		console.log(commList);
+				 		
+				 		if(commList.length==0){
+				 			comm += 'NO COMMENT!';
+				 		}else{
+				 			for(var i=0; i<commList.length; i++){
+				 				console.log(commList[i]);
+				 				comm += '댓글번호 : '+commList[i].commentNo+'<br>';
+				 				comm += '작성자 : '+commList[i].userId+'<br>';
+				 				comm += '코멘트 : '+commList[i].comment+'<br>';
+				 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a>';
+				 				comm += '<a href="editComment?commentNo='+commList[i].commentNo+'">[수정하기]</a><br><br>';
+				 			}
+				 		}
+				 		comm += '</td>';
+				 		$('#commHidden_'+msgId).empty();
+				 		$('#commHidden_'+msgId).append(comm);
+				 	}
+				});
+				
+			}else{
+				status = $('#commHidden_'+msgId).css("display", "none");
+			}
+	});
+});
+
+</script>		
 		
 <script>
 	$('.likeBnt').click(function() {
@@ -115,42 +164,6 @@ text-align: center;
 		 	}                                                             
 		});
 	});
-	
-	
-	$('.commBtn').click(function() {
-
-		var msgId = $(this).val();
-		var commList = [];
-		var comm = "<td colspan=6>";
-		
-		
-		 $.ajax({
-			type: "GET",
-			url: "viewComment",
-			data: {"msgId":msgId},
-			dataType: "JSON",
-		 	success: function(data){
-		 		commList = data;
-		 		console.log(commList);
-		 		
-		 		if(commList.length==0){
-		 			comm += 'NO COMMENT!';
-		 		}else{
-		 			for(var i=0; i<commList.length; i++){
-		 				console.log(commList[i]);
-		 				comm += '댓글번호 : '+commList[i].commentNo+'<br>';
-		 				comm += '작성자 : '+commList[i].userId+'<br>';
-		 				comm += '코멘트 : '+commList[i].comment+'<br>';
-		 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a>';
-		 				comm += '<a href="editComment?commentNo='+commList[i].commentNo+'">[수정하기]</a><br><br>';
-		 			}
-		 		}
-		 		comm += "</td>";
-		 		$('#comm_'+msgId).append(comm);
-		 	}
-		});
-	});
-
 </script>
 
 </body>
