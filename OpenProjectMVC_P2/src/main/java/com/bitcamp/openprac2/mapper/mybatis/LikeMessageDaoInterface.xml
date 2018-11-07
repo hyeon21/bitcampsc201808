@@ -21,6 +21,10 @@
  		select * from message_board
  	</select>
  	
+ 	<select id="getLikeMessages" resultType="com.bitcamp.openprac2.model.LikeMessageDTO">
+ 		select * from message_like where useridx=#{userIdx}
+ 	</select>
+ 	
  	<delete id="deleteLikeMessage" parameterType="com.bitcamp.openprac2.model.LikeMessageDTO">
  		delete from message_like where messageid=#{messageId} and useridx=#{userIdx}
  	</delete>

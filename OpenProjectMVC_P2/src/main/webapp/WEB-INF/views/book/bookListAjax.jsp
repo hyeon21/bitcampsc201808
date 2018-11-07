@@ -58,7 +58,7 @@ text-align: center;
 	<c:if test="${!viewData.isEmpty() }">
 		<c:forEach var="message" items="${viewData.messageList}">
 			<tr>
-				<td class="center" width=50>${message.messageId}</td>
+				<td id="mNo_${message.messageId}" class="center" width=50>${message.messageId}</td>
 				<td width=60>${message.userId}</td>
 				<td>${message.message}</td>
 				<td class="likeTd" id="like_${message.messageId}" width=50>
@@ -76,7 +76,7 @@ text-align: center;
 					</td>
 				
 				<td class="center" width=320>
-				<button class="likeBnt" value="${message.messageId}">좋아요!</button>
+				<button id="is_${message.messageId}_${loginInfo.idx}" class="likeBnt" value="${message.messageId}">좋아요</button>
 					<a href="messageDetailView/${message.messageId}">[상세보기]</a>
 					
 					<c:if test="${loginInfo.userId eq message.userId or loginInfo.userId eq 'hyeon21'}">
@@ -102,9 +102,36 @@ text-align: center;
 		</c:forEach>
 		
 
+
+
+
+
 <script>
 $(document).ready(function(){
-	
+	var userIdx = ${loginInfo.idx}
+	$.ajax({
+ 		type: "GET",
+		url: "isLike",
+		data: {"userIdx":userIdx},
+ 		success: function(isLike){
+ 			if(isLike.length>0){
+ 				for(var i=0; i<isLike.length; i++){
+ 					var mId = isLike[i].messageId;
+ 						$('#is_'+mId+'_'+userIdx).empty();
+				 		$('#is_'+mId+'_'+userIdx).append("안좋아요");
+ 					 }
+ 				}
+ 			}
+	});
+});
+
+</script>
+
+
+
+
+
+<script>
 	$('.commBtn').click(function() {
 		var msgId = $(this).val();
 		alert(msgId);
@@ -132,8 +159,10 @@ $(document).ready(function(){
 				 				comm += '댓글번호 : '+commList[i].commentNo+'<br>';
 				 				comm += '작성자 : '+commList[i].userId+'<br>';
 				 				comm += '코멘트 : '+commList[i].comment+'<br>';
+				 				comm += '<c:if test="uId eq commList[i].userId">';
 				 				comm += '<a href="deleteComment?commentNo='+commList[i].commentNo+'">[삭제하기]</a>';
 				 				comm += '<a href="editComment?commentNo='+commList[i].commentNo+'">[수정하기]</a><br><br>';
+				 				comm += '</c:if>';
 				 			}
 				 		}
 				 		comm += '</td>';
@@ -146,12 +175,16 @@ $(document).ready(function(){
 				status = $('#commHidden_'+msgId).css("display", "none");
 			}
 	});
-});
-
 </script>		
 		
 <script>
 	$('.likeBnt').click(function() {
+		if($(this).html()=='좋아요'){
+			$(this).html('안좋아요');
+		}else{
+			$(this).html('좋아요');
+		}
+		
 		var messageId = $(this).val();
 		var userIdx = ${loginInfo.idx}
 		 $.ajax({
