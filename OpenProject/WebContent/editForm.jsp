@@ -1,3 +1,6 @@
+<%@page import="jdbc.ConnectionProvider"%>
+<%@page import="model.MemberInfo"%>
+<%@page import="dao.MemberDao"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -7,45 +10,11 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
-	String uid = request.getParameter("userid");
+	String userId = request.getParameter("userid");
 
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-	
-	String id = "";
-	String pw = "";
-	String name = "";
-	String photo = "";
-
-	String jdbcUrl = "jdbc:apache:commons:dbcp:test";
-
-	try {
-	// 2. (연결) 커넥션개체 생성
-	// conn = DriverManager.getConnection(url, user, password);
-	// 커넥션 풀을 이용한다.
-	conn = DriverManager.getConnection(jdbcUrl);
-
-	// 3. Statement 객체 생성
-	stmt = conn.createStatement();
-
-	String list_sql = "select userid, password, username, userphoto from member where userid='" + uid + "'";
-
-	// 4. 쿼리 실행
-	rs = stmt.executeQuery(list_sql);
-
-		if (rs.next()) {
-			id = rs.getString("userid");
-			pw = rs.getString("password");
-			name = rs.getString("username");
-			photo = rs.getString("userphoto");
-		} 
-	}finally {
-			stmt.close();
-			conn.close();
-		}
-		
-		
+	Connection conn = ConnectionProvider.getConnection();
+	MemberDao memberDao = MemberDao.getInstance();
+	MemberInfo memberInfo = memberDao.select(conn, userId);
 
 %>
 
@@ -68,23 +37,23 @@ h2, td {
 		<h2>회원정보 수정</h2>
 
 		<hr>
-		<form action="edit.jsp?beforeId=<%=id%>" method="post">
+		<form action="edit2.jsp?userid=<%=memberInfo.getUserId()%>" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>아이디(이메일)</td>
-					<td><input type="text" name="userId" value="<%=id%>"></td>
+					<td><input type="text" name="userId" value="<%=memberInfo.getUserId()%>" readonly></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" name="password" value="<%=pw%>"></td>
+					<td><input type="password" name="password" value="<%=memberInfo.getPassword()%>"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="userName" value="<%=name%>"></td>
+					<td><input type="text" name="userName" value="<%=memberInfo.getUserName()%>"></td>
 				</tr>
 				<tr>
 					<td>사진</td>
-					<td><input type="file" name="photoFile" value="<%=photo%>"></td>
+					<td><input type="file" name="photoFile" value="<%=memberInfo.getUserPhoto()%>"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit"></td>

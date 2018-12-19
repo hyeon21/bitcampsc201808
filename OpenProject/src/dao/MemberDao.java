@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import jdbc.JdbcUtil;
 import model.MemberInfo;
@@ -85,6 +88,55 @@ public class MemberDao {
 			return pstmt.executeUpdate();
 		}finally {
 			JdbcUtil.close(pstmt);
+		}
+		
+	}
+	
+	// 2018.10.08 회원리스트 불러오기 DAO 패턴 구현
+	public List<MemberInfo> selectAll(Connection conn){
+		List<MemberInfo> members = new ArrayList<>();
+		
+		String sql = "";
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			sql = "select * from member";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				members.add(this.mekeMemberInfoFromResultSet(rs));
+			}
+			
+		} catch(SQLException se){
+			System.out.println("DB연결 실패");
+		} finally {
+			JdbcUtil.close(stmt);
+			JdbcUtil.close(conn);
+		}
+		return members;
+	}
+	
+	// 2018.10.11 회원정보수정 DAO 패턴 구현
+	public void update(Connection conn, MemberInfo memberInfo) throws SQLException{
+		String sql = "update Member set password=?, username=?, userphoto=? where userid=?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberInfo.getPassword());
+			pstmt.setString(2, memberInfo.getUserName());
+			pstmt.setString(3, memberInfo.getUserPhoto());
+			pstmt.setString(4, memberInfo.getUserId());
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException se){
+			System.out.println("회원정보 수정 실패. DB연결을 확인하세요.");
+		}finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
 		}
 		
 	}

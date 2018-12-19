@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+
+	<bean id="memberRegSvc" class="spring.MemberRegisterService"
+		p:memberDao-ref="memberDao">
+		<!-- 생성자 주입방식 -->
+		<!-- <constructor-arg ref="memberDao" /> -->
+
+		<!-- 프로퍼티 주입방식 -->
+		<!-- <property name="memberDao" ref="memberDao" /> -->
+		
+		<!-- 윗 설정과 같은 것. 형식만 다르다. -->
+			<!-- <property name="memberDao">
+				<ref bean="memberDao" />
+			</property> -->
+
+		<!-- 익명객체로 주입 -->
+		<!-- <property name="memberDao">
+			<bean class="spring.MemberDao" />
+		</property> -->
+
+	</bean>
+
+</beans>
+

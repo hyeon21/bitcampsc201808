@@ -36,8 +36,8 @@
 			$('body').append(data);
 		}); */
 
-		var id = $('#uid').val();  //'hyeon';
-		var pw = $('#upw').val();  //'0221';
+	/* 	var id = $('#uid').val();  //'hyeon';
+		var pw = $('#upw').val();  //'0221'; */
 
 
 		/* var udata = {
@@ -62,13 +62,13 @@
 	 */
 		
 		
-	/* 	$.getJSON('dataJson.jsp', function(data){
+	 	$.getJSON('dataJson.jsp', function(data){
 			$.each(data, function(key, value){  // each(원본데이터, 펑션핸들러)
 				var htmlStr = '<h1> '+ value.name +' : '+ value.price +'원</h1>';
 				$('body').append(htmlStr);
 			});  
 			
-		}); */
+		});
 		
 		
 		/* $.ajax({
@@ -95,14 +95,14 @@
 		
 		$('<h1></h1>').text($.param(data)).appendTo('body'); */
 		
-	$('#my-form').submit(function(event){
+	/* $('#my-form').submit(function(event){
 		
 		$('#wrap').load('data.jsp', $(this).serialize());
 		
 		event.preventDefault();
 		
 	});
-		
+		 */
 		
 		
 	});

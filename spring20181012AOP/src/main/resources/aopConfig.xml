@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 공통 기능을 제공할 클래스를 빈으로 등록 -->
+	<bean id="exeTimeAspect" class="aop.ExeTimeAspect" />
+
+	<!-- 프록시가 상속받고있는 애들은 상위클래스 형태로 해달라고... -->
+	<bean id="cal1" class="aop.RecCalculator" />
+	<bean id="cal2" class="aop.ImpCalculator" />
+	<!-- 그래서 상위클래스가 아닌 현재타입으로 받고싶으면 오토프록시 설정을 true로 -->
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<aop:config>
+		<aop:aspect id="measureAspect" ref="exeTimeAspect">
+			<aop:pointcut id="publicMethod"
+				expression="execution(public * aop..*(..))" />
+
+			<aop:around method="measure" pointcut-ref="publicMethod" />
+		</aop:aspect>
+	</aop:config>
+
+
+</beans>

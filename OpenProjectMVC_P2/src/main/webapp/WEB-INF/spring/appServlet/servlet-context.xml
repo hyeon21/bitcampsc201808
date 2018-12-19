@@ -71,7 +71,7 @@
 		value="0221" /> </beans:bean> -->
 
 	<!-- Mysql dataSource 빈 등록 -->
-	<beans:bean id="dataSource"
+<!-- 	<beans:bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<beans:property name="driverClass"
 			value="com.mysql.jdbc.Driver" />
@@ -79,7 +79,21 @@
 			value="jdbc:mysql://localhost/openproject?characterEncoding=utf8" />
 		<beans:property name="user" value="root" />
 		<beans:property name="password" value="1234" />
+	</beans:bean> -->
+
+	
+	<!-- AWS RDS -->
+	<beans:bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<beans:property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<beans:property name="jdbcUrl"
+			value="jdbc:mysql://hyeon-openproject.c0gyxpeic24h.ap-northeast-2.rds.amazonaws.com/hyeon-openproject?characterEncoding=utf8" />
+		<beans:property name="user" value="hyeon" />
+		<beans:property name="password" value="bitcamp1234" />
 	</beans:bean>
+
+
+
 
 	<!-- spring - mybatis 연동 설정 -->
 	<beans:bean id="sqlSessionFactory"

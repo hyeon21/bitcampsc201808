@@ -68,7 +68,9 @@ h2, td {
 	border-radius: 75px;
 	margin: 20px 0;
 	text-align: center;
+	overflow: hidden;
 }
+
 </style>
 </head>
 <body>
@@ -78,7 +80,7 @@ h2, td {
 		<h2>회원 정보</h2>
 
 		<div id="memberPhoto">
-			<img src="../images/<%=photo%>">
+			<img src="<%= request.getContextPath()+"/uploadFile/"+ photo%>">
 		</div>
 
 		<hr>
